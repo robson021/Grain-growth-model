@@ -22,9 +22,9 @@ public enum Neighbourhood {
 
     public static Neighbourhood fromString(String text) {
         if (text != null) {
-            for (Neighbourhood b : Neighbourhood.values()) {
-                if (text.equalsIgnoreCase(b.text)) {
-                    return b;
+            for (Neighbourhood n : Neighbourhood.values()) {
+                if (text.equalsIgnoreCase(n.text)) {
+                    return n;
                 }
             }
         }

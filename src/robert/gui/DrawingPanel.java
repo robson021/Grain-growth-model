@@ -66,7 +66,7 @@ public class DrawingPanel extends JPanel {
             float r = random.nextFloat();
             float g = random.nextFloat();
             float b = random.nextFloat();
-            cells[x][y].makeSeed(new Color(r, g, b));
+            cells[x][y].makeRandomSeed(new Color(r, g, b));
         }
     }
 
@@ -81,10 +81,14 @@ public class DrawingPanel extends JPanel {
 
         //System.out.println(neighbourhood.toString());
 
-        for (int j, i = 0; i < SIZE; i++) {
+        /*for (int j, i = 0; i < SIZE; i++) {
             for (j = 0; j < SIZE; j++) {
                 cells[i][j].checkMyNeighbourhood(neighbourhood);
             }
+        }*/
+
+        for (CellPane c : CellPane.getSeeds()) {
+            c.checkMyNeighbourhood(neighbourhood);
         }
 
     }

@@ -84,12 +84,19 @@ public class MainFrame extends JFrame {
         @Override
         public void run() {
             isRunning = true;
+            int s;
+            int counter = 0;
             infoLabel.setText("Started");
             //System.out.println("Thead Started!");
             while (isRunning) {
+
+                drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
+                s = CellPane.UpdateCells();
+
+
+                infoLabel.setText("Finished cycle: " + (++counter) + " new grains: " + s);
                 try {
-                    drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
-                    Thread.sleep(10);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                 }
             }

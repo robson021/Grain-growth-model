@@ -8,7 +8,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     private static DrawingPanel drawingPanel;
-    private static final int MIN_INPUT = 70;
+    private static final int MIN_INPUT = DrawingPanel.SIZE * 6 / 7;
     private Thread mainThread = null;
     private boolean isRunning = false;
     private JComboBox comboBox;
@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
     private JLabel infoLabel;
     private JButton startButton, stopButton;
 
-    public MainFrame() throws HeadlessException {
+    private MainFrame() throws HeadlessException {
         super("Recrystallization model");
         this.setLayout(new BorderLayout());
         drawingPanel = new DrawingPanel();
@@ -119,7 +119,7 @@ public class MainFrame extends JFrame {
                 //break;
             }
             //System.out.println("thread ended");
-            infoLabel.setText("Done");
+            infoLabel.setText("Done in " + counter + " cycles");
             startButton.setText("Start");
             startButton.setEnabled(true);
             mainThread = null;

@@ -53,7 +53,7 @@ public class CellPane extends JPanel {
 
         defaultBackground = color;
         setBackground(defaultBackground);
-        this.seeds.add(this);
+        seeds.add(this);
         //System.out.println(toString());
     }
 
@@ -63,7 +63,7 @@ public class CellPane extends JPanel {
         setBackground(defaultBackground);
         this.seed = true;
         //this.alive = true;
-        this.seeds.add(this);
+        seeds.add(this);
         //System.out.println("I'm seed now: " + this.toString());
     }
 
@@ -76,7 +76,7 @@ public class CellPane extends JPanel {
 
     public void checkMyNeighbourhood(Neighbourhood neighbourhood) {
 
-        if (!this.isSeed()) {
+        if (!this.seed) {
             System.out.println("I'm not seed");
             return;
         }
@@ -85,6 +85,33 @@ public class CellPane extends JPanel {
 
         switch (neighbourhood) {
             case VON_NEUMAN:
+                int x, y;
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x = this.cordX + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x = this.cordX;
+                    y = this.cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY - 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
             case MOORE:
                 for (int j, i = cordX - 1; i < (cordX + 2); i++) {
@@ -92,10 +119,7 @@ public class CellPane extends JPanel {
                         try {
                             if (i == cordX && j == cordY) continue;
                             otherCell = cells[i][j];
-                            if (!otherCell.isSeed()) {
-                                toUpdateList.add(new CellToUpdate(otherCell.cordX, otherCell.cordY,
-                                        this.defaultBackground, this.id));
-                            }
+                            checkCandidate(otherCell);
                         } catch (Exception e) {
                             //System.out.println("Exception. X, Y: " + i + ", " + j);
                         }
@@ -117,6 +141,13 @@ public class CellPane extends JPanel {
         }
     }
 
+    private void checkCandidate(CellPane otherCell) {
+        if (!otherCell.isSeed()) {
+            toUpdateList.add(new CellToUpdate(otherCell.cordX, otherCell.cordY,
+                    this.defaultBackground, this.id));
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -129,7 +160,7 @@ public class CellPane extends JPanel {
         return seeds;
     }
 
-    public boolean isSeed() {
+    private boolean isSeed() {
         return seed;
     }
 

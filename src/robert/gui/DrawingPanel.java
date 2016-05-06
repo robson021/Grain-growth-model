@@ -14,13 +14,13 @@ import java.util.Random;
  */
 public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
-    public static final int SIZE = 65;
+    public static final int SIZE = 70;
 
     public CellPane[][] getCells() {
         return cells;
     }
 
-    private CellPane[][] cells = new CellPane[SIZE][SIZE];
+    private final CellPane[][] cells = new CellPane[SIZE][SIZE];
 
     public DrawingPanel() {
         setLayout(new GridBagLayout());
@@ -33,7 +33,7 @@ public class DrawingPanel extends JPanel {
                 gbc.gridy = row;
 
                 CellPane cellPane = new CellPane(row, col);
-                Border border = null;
+                Border border;
                 if (row < SIZE - 1) {
                     if (col < SIZE - 1) {
                         border = new MatteBorder(1, 1, 0, 0, Color.GRAY);

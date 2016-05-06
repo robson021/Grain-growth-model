@@ -5,8 +5,8 @@ package robert.model;
  */
 public enum Neighbourhood {
 
-    VON_NEUMAN("VON_NEUMAN"),
     MOORE("MOORE"),
+    VON_NEUMAN("VON_NEUMAN"),
     PENTAGONAL("PENTAGONAL"),
     HEXAGONAL("HEXAGONAL"),
     LEFT("LEFT"),

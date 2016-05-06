@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class CellPane extends JPanel {
     private CellPane[][] cells = DrawingPanel.getSelf().getCells();
     private static java.util.List<CellPane> toUpdateList = new ArrayList<>();
+    private static final Color deadBackground = Color.WHITE;
     private static int idCounter = 0;
     private Color defaultBackground;
     private final int cordX, cordY;
@@ -26,6 +27,7 @@ public class CellPane extends JPanel {
     public CellPane(int x, int y) {
         cordX = x;
         cordY = y;
+        setBackground(deadBackground);
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -48,6 +50,13 @@ public class CellPane extends JPanel {
 
         defaultBackground = color;
         setBackground(defaultBackground);
+    }
+
+    public void clearMe() {
+        this.isSeed = false;
+        this.alive = false;
+        id = -1;
+        setBackground(deadBackground);
     }
 
     public void checkMyNeighbourhood(Neighbourhood neighbourhood) {

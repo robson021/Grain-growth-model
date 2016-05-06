@@ -14,7 +14,6 @@ import java.util.Random;
 public class DrawingPanel extends JPanel {
     private static DrawingPanel self = null;
     public static final int SIZE = 60;
-    public static final int SEEDS_NUM = 7;
 
     public CellPane[][] getCells() {
         return cells;
@@ -52,14 +51,13 @@ public class DrawingPanel extends JPanel {
                 add(cellPane, gbc);
             }
         }
-        setRandomSeeds();
     }
 
     public static DrawingPanel getSelf() {
         return self;
     }
 
-    private void setRandomSeeds() {
+    public void setRandomSeeds(final int SEEDS_NUM) {
         Random random = new Random();
         for (int x, y, i = 0; i < SEEDS_NUM; i++) {
             x = random.nextInt(SIZE);
@@ -69,6 +67,13 @@ public class DrawingPanel extends JPanel {
             float g = random.nextFloat();
             float b = random.nextFloat();
             cells[x][y].makeSeed(new Color(r, g, b));
+        }
+    }
+
+    public void clearCells() {
+        for (int j, i = 0; i < SIZE; i++) {
+            for (j = 0; j < SIZE; j++)
+                cells[i][j].clearMe();
         }
     }
 

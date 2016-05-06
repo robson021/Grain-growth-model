@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Recrystallization.iml" filepath="$PROJECT_DIR$/Recrystallization.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Grain Growth.iml" filepath="$PROJECT_DIR$/Grain Growth.iml" />
     </modules>
   </component>
 </project>

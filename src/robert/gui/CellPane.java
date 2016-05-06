@@ -43,6 +43,10 @@ public class CellPane extends JPanel {
     }
 
     public void makeRandomSeed(Color color) {
+        if (this.seed) {
+            //System.out.println("The cell is already taken:\n\t" + toString());
+            return;
+        }
         this.seed = true;
         //this.alive = true;
         id = idCounter++;
@@ -50,7 +54,7 @@ public class CellPane extends JPanel {
         defaultBackground = color;
         setBackground(defaultBackground);
         this.seeds.add(this);
-        System.out.println(toString());
+        //System.out.println(toString());
     }
 
     private void addMeToOtherSeed(int id, Color c) {

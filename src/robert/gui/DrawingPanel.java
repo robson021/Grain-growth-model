@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -59,7 +60,7 @@ public class DrawingPanel extends JPanel {
 
     public void setRandomSeeds(final int SEEDS_NUM) {
         Random random = new Random();
-        System.out.println("Random cells:\n");
+        System.out.println("Random cells:");
         for (int x, y, i = 0; i < SEEDS_NUM; i++) {
             x = random.nextInt(SIZE);
             y = random.nextInt(SIZE);
@@ -79,13 +80,8 @@ public class DrawingPanel extends JPanel {
 
     public void checkCells(Neighbourhood neighbourhood) {
 
-        //System.out.println(neighbourhood.toString());
-
-        /*for (int j, i = 0; i < SIZE; i++) {
-            for (j = 0; j < SIZE; j++) {
-                cells[i][j].checkMyNeighbourhood(neighbourhood);
-            }
-        }*/
+        long t = System.nanoTime();
+        Collections.shuffle(CellPane.getSeeds(), new Random(t)); // random update order
 
         for (CellPane c : CellPane.getSeeds()) {
             c.checkMyNeighbourhood(neighbourhood);

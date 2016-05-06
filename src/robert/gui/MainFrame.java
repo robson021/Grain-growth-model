@@ -8,7 +8,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     private static DrawingPanel drawingPanel;
-    private static final int MIN_INPUT = 50;
+    private static final int MIN_INPUT = 70;
     private Thread mainThread = null;
     private boolean isRunning = false;
     private JComboBox comboBox;

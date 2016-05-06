@@ -8,23 +8,27 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     private static DrawingPanel drawingPanel;
+    private static final int MIN_INPUT = 50;
     private Thread mainThread = null;
     private boolean isRunning = false;
     private JComboBox comboBox;
     private JTextField seedCountTextField;
     private JLabel infoLabel;
+    private JButton startButton, stopButton;
 
     public MainFrame() throws HeadlessException {
-        super("Rekrystalizacja");
+        super("Recrystallization model");
         this.setLayout(new BorderLayout());
         drawingPanel = new DrawingPanel();
 
+        Color defaultPanelBg = Color.YELLOW.darker();
+
         this.add(drawingPanel, BorderLayout.CENTER);
         JPanel northPanel = new JPanel(new FlowLayout());
-        northPanel.setBackground(Color.GRAY);
+        northPanel.setBackground(defaultPanelBg);
 
         infoLabel = new JLabel("[info]");
-        infoLabel.setForeground(Color.GREEN.darker());
+        infoLabel.setForeground(Color.RED.darker());
         //infoLabel.setMinimumSize(new Dimension(20, infoLabel.getHeight()));
         northPanel.add(infoLabel);
         northPanel.add(new JSeparator());
@@ -42,8 +46,8 @@ public class MainFrame extends JFrame {
         this.add(northPanel, BorderLayout.NORTH);
 
         JPanel southPanel = new JPanel(new FlowLayout());
-        southPanel.setBackground(Color.GRAY);
-        JButton startButton = new JButton("Start");
+        southPanel.setBackground(defaultPanelBg);
+        startButton = new JButton("Start");
         startButton.addActionListener(e -> {
             int seeds;
             try {
@@ -53,8 +57,8 @@ public class MainFrame extends JFrame {
                 return;
             }
 
-            if (seeds < 50) {
-                infoLabel.setText("Input must be at least '50'");
+            if (seeds < MIN_INPUT) {
+                infoLabel.setText("Input must be at least: " + MIN_INPUT);
                 return;
             } else if (mainThread == null) {
                 mainThread = new Thread(new StartAction(seeds));
@@ -66,7 +70,7 @@ public class MainFrame extends JFrame {
         });
 
         southPanel.add(startButton);
-        JButton stopButton = new JButton("Stop");
+        stopButton = new JButton("Stop");
         stopButton.addActionListener(e -> {
             System.out.println("stopping thread");
             this.isRunning = false;
@@ -82,18 +86,24 @@ public class MainFrame extends JFrame {
 
         public StartAction(int seeds) {
             drawingPanel.clearCells();
+            CellPane.getSeeds().clear();
+            CellPane.getToUpdateList().clear();
             drawingPanel.setRandomSeeds(seeds);
         }
 
         @Override
         public void run() {
             isRunning = true;
+            startButton.setText("Running...");
+            startButton.setEnabled(false);
             int s;
             int counter = 0;
             infoLabel.setText("Started");
-            //System.out.println("Thead Started!");
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+            }
             while (isRunning) {
-
                 drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
                 s = CellPane.UpdateCells();
                 infoLabel.setText("Finished cycle: " + (++counter) /*+ " new grains: " + s*/);
@@ -103,13 +113,15 @@ public class MainFrame extends JFrame {
                 } // all cells filled, no new grains
 
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                 }
                 //break;
             }
             //System.out.println("thread ended");
             infoLabel.setText("Done");
+            startButton.setText("Start");
+            startButton.setEnabled(true);
             mainThread = null;
         }
     }

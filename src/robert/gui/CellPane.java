@@ -19,7 +19,7 @@ public class CellPane extends JPanel {
     private static int idCounter = 0;
     private Color defaultBackground;
     private final int cordX, cordY;
-    private boolean alive = false;
+    //private boolean alive = false;
     private boolean seed = false;
     private int id = -1;
 
@@ -44,28 +44,28 @@ public class CellPane extends JPanel {
 
     public void makeRandomSeed(Color color) {
         this.seed = true;
-        this.alive = true;
+        //this.alive = true;
         id = idCounter++;
 
         defaultBackground = color;
         setBackground(defaultBackground);
         this.seeds.add(this);
+        System.out.println(toString());
     }
 
     private void addMeToOtherSeed(int id, Color c) {
         this.id = id;
         this.defaultBackground = c;
         setBackground(defaultBackground);
-        //setBackground(Color.BLACK);
         this.seed = true;
-        this.alive = true;
+        //this.alive = true;
         this.seeds.add(this);
         //System.out.println("I'm seed now: " + this.toString());
     }
 
     public void clearMe() {
         this.seed = false;
-        this.alive = false;
+        //this.alive = false;
         id = -1;
         setBackground(deadBackground);
     }
@@ -134,7 +134,7 @@ public class CellPane extends JPanel {
         return "CellPane{" +
                 "cordX=" + cordX +
                 ", cordY=" + cordY +
-                ", alive=" + alive +
+                //", alive=" + alive +
                 ", seed=" + seed +
                 ", id=" + id +
                 '}';
@@ -173,6 +173,10 @@ public class CellPane extends JPanel {
         }
         toUpdateList.clear();
         return s;
+    }
+
+    public static java.util.List<CellToUpdate> getToUpdateList() {
+        return toUpdateList;
     }
 
     public int getCordX() {

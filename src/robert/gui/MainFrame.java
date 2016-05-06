@@ -92,16 +92,20 @@ public class MainFrame extends JFrame {
 
                 drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
                 s = CellPane.UpdateCells();
-
-
                 infoLabel.setText("Finished cycle: " + (++counter) + " new grains: " + s);
+
+                if (s == 0) {
+                    break;
+                } // all cells filled, no new grains
+
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                 }
+                //break;
             }
             //System.out.println("thread ended");
-            infoLabel.setText("Stopped");
+            infoLabel.setText("Done");
             mainThread = null;
         }
     }

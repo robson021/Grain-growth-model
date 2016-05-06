@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by student on 2016-05-05.
  */
 public class CellPane extends JPanel {
-    private CellPane[][] cells = DrawingPanel.getSelf().getCells();
+    private static CellPane[][] cells = DrawingPanel.getSelf().getCells();
     private static java.util.List<CellToUpdate> toUpdateList = new ArrayList<>();
     private static java.util.List<CellPane> seeds = new ArrayList<>();
     private static final Color deadBackground = Color.WHITE;
@@ -53,13 +53,15 @@ public class CellPane extends JPanel {
     }
 
     private void addMeToOtherSeed(int id, Color c) {
+        // TODO: 06.05.16 colors fuck up dispaly
         this.id = id;
-        this.defaultBackground = c;
-        this.setBackground(deadBackground);
+        //this.defaultBackground = c;
+        //this.setBackground(deadBackground);
+        setBackground(Color.BLACK);
         this.seed = true;
         this.alive = true;
         this.seeds.add(this);
-        System.out.println("I'm seed now: " + this.toString());
+        //System.out.println("I'm seed now: " + this.toString());
     }
 
     public void clearMe() {
@@ -88,7 +90,8 @@ public class CellPane extends JPanel {
                             if (i == cordX && j == cordY) continue;
                             otherCell = cells[i][j];
                             if (!otherCell.isSeed()) {
-                                toUpdateList.add(new CellToUpdate(otherCell, this.defaultBackground, this.id));
+                                toUpdateList.add(new CellToUpdate(otherCell.cordX, otherCell.cordY,
+                                        this.defaultBackground, this.id));
                             }
                         } catch (Exception e) {
                             //System.out.println("Exception. X, Y: " + i + ", " + j);
@@ -139,23 +142,45 @@ public class CellPane extends JPanel {
     }
 
     private class CellToUpdate {
-        CellPane cell;
-        Color bg;
-        int id;
+        final int x, y;
+        final Color bg;
+        final int id;
 
-        public CellToUpdate(CellPane cell, Color bg, int id) {
-            this.cell = cell;
+        public CellToUpdate(int x, int y, Color bg, int id) {
+            this.x = x;
+            this.y = y;
             this.bg = bg;
             this.id = id;
+
+            //System.out.println("Added to update: " + toString());
+        }
+
+        @Override
+        public String toString() {
+            return "CellToUpdate{" +
+                    "x=" + x +
+                    ", y=" + y +
+                    ", id=" + id +
+                    '}';
         }
     }
 
-    static int UpdateCells() {
+    public static int UpdateCells() {
         int s = toUpdateList.size();
+        CellPane cell;
         for (CellToUpdate c : toUpdateList) {
-            c.cell.addMeToOtherSeed(c.id, c.bg);
+            cell = cells[c.x][c.y];
+            cell.addMeToOtherSeed(c.id, c.bg);
         }
         toUpdateList.clear();
         return s;
+    }
+
+    public int getCordX() {
+        return cordX;
+    }
+
+    public int getCordY() {
+        return cordY;
     }
 }

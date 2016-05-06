@@ -52,7 +52,11 @@ public class MainFrame extends JFrame {
                 infoLabel.setText("Bad input number!");
                 return;
             }
-            if (mainThread == null && seeds > 0) {
+
+            if (seeds < 50) {
+                infoLabel.setText("Input must be at least '50'");
+                return;
+            } else if (mainThread == null) {
                 mainThread = new Thread(new StartAction(seeds));
             } else {
                 infoLabel.setText("Already running!");
@@ -92,7 +96,7 @@ public class MainFrame extends JFrame {
 
                 drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
                 s = CellPane.UpdateCells();
-                infoLabel.setText("Finished cycle: " + (++counter) + " new grains: " + s);
+                infoLabel.setText("Finished cycle: " + (++counter) /*+ " new grains: " + s*/);
 
                 if (s == 0) {
                     break;

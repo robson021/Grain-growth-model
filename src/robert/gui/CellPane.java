@@ -53,11 +53,10 @@ public class CellPane extends JPanel {
     }
 
     private void addMeToOtherSeed(int id, Color c) {
-        // TODO: 06.05.16 colors fuck up dispaly
         this.id = id;
-        //this.defaultBackground = c;
-        //this.setBackground(deadBackground);
-        setBackground(Color.BLACK);
+        this.defaultBackground = c;
+        setBackground(defaultBackground);
+        //setBackground(Color.BLACK);
         this.seed = true;
         this.alive = true;
         this.seeds.add(this);

@@ -61,19 +61,31 @@ public class DrawingPanel extends JPanel {
 
     public void setRandomSeeds(final int SEEDS_NUM, Placement p) {
         Random random = new Random();
+        float r, g, b;
         switch (p) {
             case RANDOM:
-                System.out.println("Random cells");
                 for (int x, y, i = 0; i < SEEDS_NUM; i++) {
                     x = random.nextInt(SIZE);
                     y = random.nextInt(SIZE);
-                    float r = random.nextFloat();
-                    float g = random.nextFloat();
-                    float b = random.nextFloat();
+                    r = random.nextFloat();
+                    g = random.nextFloat();
+                    b = random.nextFloat();
                     cells[x][y].makeRandomSeed(new Color(r, g, b));
                 }
                 break;
             case EVENLY:
+                //int step = (int) (Math.sqrt(SEEDS_NUM) / SIZE);
+                int step = SEEDS_NUM;
+                if (step < 3 || (step > 10)) step = 8;
+                System.out.println("step: " + step);
+                for (int j, i = step; i < SIZE; i += step) {
+                    for (j = step; j < SIZE; j += step) {
+                        r = random.nextFloat();
+                        g = random.nextFloat();
+                        b = random.nextFloat();
+                        cells[i][j].makeRandomSeed(new Color(r, g, b));
+                    }
+                }
                 break;
             case IN_RAY:
                 break;

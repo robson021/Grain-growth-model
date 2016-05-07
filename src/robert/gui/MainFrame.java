@@ -62,7 +62,7 @@ public class MainFrame extends JFrame {
                 return;
             }
 
-            if (seeds < MIN_INPUT) {
+            if (seeds < MIN_INPUT && !Placement.fromString(placementBox.getItemAt(placementBox.getSelectedIndex()).toString()).equals(Placement.EVENLY)) {
                 infoLabel.setText("Input must be at least: " + MIN_INPUT);
                 return;
             } else if (mainThread == null) {

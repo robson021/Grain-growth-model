@@ -340,8 +340,11 @@ public class CellPane extends JPanel {
 
     private void checkCandidate(CellPane otherCell) {
         if (!otherCell.isSeed()) {
-            toUpdateList.add(new CellToUpdate(otherCell.cordX, otherCell.cordY,
-                    this.defaultBackground, this.id));
+            try { // may cause heap overflow
+                toUpdateList.add(new CellToUpdate(otherCell.cordX, otherCell.cordY,
+                        this.defaultBackground, this.id));
+            } catch (Exception e) {
+            }
         }
     }
 

@@ -82,10 +82,9 @@ public class CellPane extends JPanel {
         }
 
         CellPane otherCell = null;
-
+        int x, y;
         switch (neighbourhood) {
             case VON_NEUMAN:
-                int x, y;
                 x = this.cordX - 1;
                 y = this.cordY;
                 try {
@@ -126,17 +125,49 @@ public class CellPane extends JPanel {
                     }
                 }
                 break;
-            case PENTAGONAL:
+            case PENTAGONAL_LEFT:
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x = this.cordX + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY - 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+
                 break;
-            case HEXAGONAL:
+            case PENTAGONAL_RIGHT:
                 break;
-            case LEFT:
+            case PENTAGONAL_UP:
                 break;
-            case RIGHT:
+            case PENTAGONAL_DOWN:
                 break;
-            case UP:
+            case HEXAGONAL_A:
                 break;
-            case DOWN:
+            case HEXAGONAL_B:
                 break;
         }
     }

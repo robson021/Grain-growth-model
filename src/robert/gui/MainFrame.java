@@ -108,9 +108,9 @@ public class MainFrame extends JFrame {
                 s = CellPane.UpdateCells();
                 infoLabel.setText("Finished cycle: " + (++counter) /*+ " new grains: " + s*/);
 
-                if (s == 0) {
+                if (s == 0) { // all cells filled, no new grains
                     break;
-                } // all cells filled, no new grains
+                }
 
                 try {
                     Thread.sleep(10);

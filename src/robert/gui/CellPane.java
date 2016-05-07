@@ -22,12 +22,11 @@ public class CellPane extends JPanel {
     //private boolean alive = false;
     private boolean seed = false;
     private int id = -1;
-    private final CellPane self;
 
     public CellPane(int x, int y) {
         cordX = x;
         cordY = y;
-        self = this;
+        CellPane self = this;
         setBackground(deadBackground);
         addMouseListener(new MouseAdapter() {
             @Override

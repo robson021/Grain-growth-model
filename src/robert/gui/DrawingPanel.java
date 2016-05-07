@@ -1,6 +1,7 @@
 package robert.gui;
 
 import robert.model.Neighbourhood;
+import robert.model.Placement;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -58,16 +59,24 @@ public class DrawingPanel extends JPanel {
         return self;
     }
 
-    public void setRandomSeeds(final int SEEDS_NUM) {
+    public void setRandomSeeds(final int SEEDS_NUM, Placement p) {
         Random random = new Random();
-        System.out.println("Random cells:");
-        for (int x, y, i = 0; i < SEEDS_NUM; i++) {
-            x = random.nextInt(SIZE);
-            y = random.nextInt(SIZE);
-            float r = random.nextFloat();
-            float g = random.nextFloat();
-            float b = random.nextFloat();
-            cells[x][y].makeRandomSeed(new Color(r, g, b));
+        switch (p) {
+            case RANDOM:
+                System.out.println("Random cells");
+                for (int x, y, i = 0; i < SEEDS_NUM; i++) {
+                    x = random.nextInt(SIZE);
+                    y = random.nextInt(SIZE);
+                    float r = random.nextFloat();
+                    float g = random.nextFloat();
+                    float b = random.nextFloat();
+                    cells[x][y].makeRandomSeed(new Color(r, g, b));
+                }
+                break;
+            case EVENLY:
+                break;
+            case IN_RAY:
+                break;
         }
     }
 

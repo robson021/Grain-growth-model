@@ -1,6 +1,7 @@
 package robert.gui;
 
 import robert.model.Neighbourhood;
+import robert.model.Placement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +9,10 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     private static DrawingPanel drawingPanel;
-    private static final int MIN_INPUT = DrawingPanel.SIZE * 6 / 7;
+    private static final int MIN_INPUT = DrawingPanel.SIZE * 4 / 3;
     private Thread mainThread = null;
     private boolean isRunning = false;
-    private final JComboBox comboBox;
+    private final JComboBox neighbourhoodBox, placementBox;
     private final JTextField seedCountTextField;
     private final JLabel infoLabel;
     private final JButton startButton, stopButton;
@@ -34,10 +35,14 @@ public class MainFrame extends JFrame {
         northPanel.add(new JSeparator());
         northPanel.add(new JSeparator());
 
-        northPanel.add(new JLabel("Neighbourhood type:"));
+        northPanel.add(new JLabel("Neighbourhood:"));
 
-        comboBox = new JComboBox(Neighbourhood.values());
-        northPanel.add(comboBox);
+        neighbourhoodBox = new JComboBox(Neighbourhood.values());
+        northPanel.add(neighbourhoodBox);
+
+        placementBox = new JComboBox(Placement.values());
+        northPanel.add(new JLabel("Placement:"));
+        northPanel.add(placementBox);
 
         seedCountTextField = new JTextField(3);
         northPanel.add(new JLabel("Seeds:"));
@@ -88,7 +93,8 @@ public class MainFrame extends JFrame {
             drawingPanel.clearCells();
             CellPane.getSeeds().clear();
             CellPane.getToUpdateList().clear();
-            drawingPanel.setRandomSeeds(seeds);
+            Placement p = Placement.fromString(placementBox.getItemAt(placementBox.getSelectedIndex()).toString());
+            drawingPanel.setRandomSeeds(seeds, p);
         }
 
         @Override
@@ -104,7 +110,7 @@ public class MainFrame extends JFrame {
             } catch (InterruptedException e) {
             }
             while (isRunning) {
-                drawingPanel.checkCells(Neighbourhood.fromString(comboBox.getItemAt(comboBox.getSelectedIndex()).toString()));
+                drawingPanel.checkCells(Neighbourhood.fromString(neighbourhoodBox.getItemAt(neighbourhoodBox.getSelectedIndex()).toString()));
                 s = CellPane.UpdateCells();
                 infoLabel.setText("Finished cycle: " + (++counter) /*+ " new grains: " + s*/);
 

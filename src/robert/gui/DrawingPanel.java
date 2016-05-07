@@ -54,7 +54,7 @@ public class DrawingPanel extends JPanel {
         }
     }
 
-    public static DrawingPanel getSelf() {
+    public static DrawingPanel getPanel() {
         return self;
     }
 

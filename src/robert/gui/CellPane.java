@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by student on 2016-05-05.
  */
 public class CellPane extends JPanel {
-    private static CellPane[][] cells = DrawingPanel.getSelf().getCells();
+    private static CellPane[][] cells = DrawingPanel.getPanel().getCells();
     private static java.util.List<CellToUpdate> toUpdateList = new ArrayList<>();
     private static java.util.List<CellPane> seeds = new ArrayList<>();
     private static final Color deadBackground = Color.WHITE;
@@ -157,13 +157,105 @@ public class CellPane extends JPanel {
                     checkCandidate(otherCell);
                 } catch (Exception e) {
                 }
-
                 break;
             case PENTAGONAL_RIGHT:
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x = this.cordX + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
             case PENTAGONAL_UP:
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY - 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
             case PENTAGONAL_DOWN:
+                x = this.cordX + 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = this.cordY - 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
             case HEXAGONAL_A:
                 break;

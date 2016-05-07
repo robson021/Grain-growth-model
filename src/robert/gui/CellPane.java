@@ -258,8 +258,82 @@ public class CellPane extends JPanel {
                 }
                 break;
             case HEXAGONAL_A:
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = cordY + 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y--;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
             case HEXAGONAL_B:
+                x = this.cordX - 1;
+                y = this.cordY;
+                try {
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y = cordY - 1;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    x++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
+                try {
+                    y++;
+                    otherCell = cells[x][y];
+                    checkCandidate(otherCell);
+                } catch (Exception e) {
+                }
                 break;
         }
     }

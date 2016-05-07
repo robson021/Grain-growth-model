@@ -59,7 +59,7 @@ public class DrawingPanel extends JPanel {
         return self;
     }
 
-    public void setRandomSeeds(final int SEEDS_NUM, Placement p) {
+    public void setRandomSeeds(final int SEEDS_NUM, Placement p, int ray) {
         Random random = new Random();
         float r, g, b;
         switch (p) {
@@ -74,9 +74,8 @@ public class DrawingPanel extends JPanel {
                 }
                 break;
             case EVENLY:
-                //int step = (int) (Math.sqrt(SEEDS_NUM) / SIZE);
                 int step = SEEDS_NUM;
-                if (step < 3 || (step > 10)) step = 8;
+                if (step < 3 || (step > 10)) step = 7;
                 System.out.println("step: " + step);
                 for (int j, i = step; i < SIZE; i += step) {
                     for (j = step; j < SIZE; j += step) {
@@ -88,6 +87,26 @@ public class DrawingPanel extends JPanel {
                 }
                 break;
             case IN_RAY:
+                if (ray < 1 || ray > 8) ray = 6;
+                System.out.println("ray: " + ray);
+                for (int k, x, y, i = 0; i < SEEDS_NUM; i++) {
+                    x = random.nextInt(SIZE);
+                    y = random.nextInt(SIZE);
+                    r = random.nextFloat();
+                    g = random.nextFloat();
+                    b = random.nextFloat();
+
+                    k = 0;
+
+                    while (!cells[x][y].checkArea(ray) && k < 5) {
+                        x = random.nextInt(SIZE);
+                        y = random.nextInt(SIZE);
+                        ++k;
+                    }
+                    if (cells[x][y].checkArea(ray)) {
+                        cells[x][y].makeRandomSeed(new Color(r, g, b));
+                    }
+                }
                 break;
         }
     }
@@ -109,4 +128,5 @@ public class DrawingPanel extends JPanel {
         }
 
     }
+
 }

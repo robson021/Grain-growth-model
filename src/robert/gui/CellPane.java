@@ -22,10 +22,12 @@ public class CellPane extends JPanel {
     //private boolean alive = false;
     private boolean seed = false;
     private int id = -1;
+    private final CellPane self;
 
     public CellPane(int x, int y) {
         cordX = x;
         cordY = y;
+        self = this;
         setBackground(deadBackground);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -38,6 +40,7 @@ public class CellPane extends JPanel {
 
             @Override
             public void mouseClicked(MouseEvent e) {
+                MainFrame.setMessage(self.toString());
             }
         });
     }
@@ -364,15 +367,21 @@ public class CellPane extends JPanel {
         return seed;
     }
 
-    @Override
-    public String toString() {
-        return "CellPane{" +
-                "cordX=" + cordX +
-                ", cordY=" + cordY +
-                //", alive=" + alive +
-                ", seed=" + seed +
-                ", id=" + id +
-                '}';
+    public boolean checkArea(int ray) {
+        CellPane cell;
+        for (int j, i = cordX - ray; i <= cordX + ray; i++) {
+            for (j = cordY - ray; j <= cordY + ray; j++) {
+                try {
+                    cell = cells[i][j];
+                    if (cell.isSeed()) {
+                        //System.out.println("Detected! " + cell.toString());
+                        return false;
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+        return true;
     }
 
     private class CellToUpdate {
@@ -408,6 +417,13 @@ public class CellPane extends JPanel {
         }
         toUpdateList.clear();
         return s;
+    }
+
+    @Override
+    public String toString() {
+        return "X=" + cordX +
+                ", Y=" + cordY +
+                ", id=" + id;
     }
 
     public static java.util.List<CellToUpdate> getToUpdateList() {

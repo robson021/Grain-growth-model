@@ -11,10 +11,10 @@ public class MainFrame extends JFrame {
     private static final int MIN_INPUT = DrawingPanel.SIZE * 6 / 7;
     private Thread mainThread = null;
     private boolean isRunning = false;
-    private JComboBox comboBox;
-    private JTextField seedCountTextField;
-    private JLabel infoLabel;
-    private JButton startButton, stopButton;
+    private final JComboBox comboBox;
+    private final JTextField seedCountTextField;
+    private final JLabel infoLabel;
+    private final JButton startButton, stopButton;
 
     private MainFrame() throws HeadlessException {
         super("Recrystallization model");

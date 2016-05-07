@@ -12,9 +12,9 @@ import java.util.ArrayList;
  * Created by student on 2016-05-05.
  */
 public class CellPane extends JPanel {
-    private static CellPane[][] cells = DrawingPanel.getPanel().getCells();
-    private static java.util.List<CellToUpdate> toUpdateList = new ArrayList<>();
-    private static java.util.List<CellPane> seeds = new ArrayList<>();
+    private static final CellPane[][] cells = DrawingPanel.getPanel().getCells();
+    private static final java.util.List<CellToUpdate> toUpdateList = new ArrayList<>();
+    private static final java.util.List<CellPane> seeds = new ArrayList<>();
     private static final Color deadBackground = Color.WHITE;
     private static int idCounter = 0;
     private Color defaultBackground;

@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     private static MainFrame self;
 
     private MainFrame() throws HeadlessException {
-        super("Recrystallization model");
+        super("Grain growth model by Robert Nowak");
         self = this;
         this.setLayout(new BorderLayout());
         drawingPanel = new DrawingPanel();
